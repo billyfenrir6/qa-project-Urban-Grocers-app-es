@@ -2,7 +2,7 @@ import sender_stand_request
 import data
 
 
-def get_create_new_user():  # users
+def get_create_new_user_token():  # users
     response = sender_stand_request.post_create_new_user(data.user_body)
     return response.json()["authToken"]
 
@@ -13,12 +13,12 @@ def get_kit_name(kit_name):  # kit
    return current_kit_name
 
 def positive_assert_201(kit_body):
-    response = sender_stand_request.post_create_new_client_kit(kit_body, get_create_new_user())
+    response = sender_stand_request.post_create_new_client_kit(kit_body, get_create_new_user_token())
     assert response.status_code == 201
     assert response.json()["name"] == kit_body["name"]
 
 def negative_assert_400(kit_body):
-    response = sender_stand_request.post_create_new_client_kit(kit_body, get_create_new_user())
+    response = sender_stand_request.post_create_new_client_kit(kit_body, get_create_new_user_token())
     assert response.status_code == 400
     assert response.json()["name"] == kit_body["name"]
 
